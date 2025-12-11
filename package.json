@@ -1,0 +1,20 @@
+{
+  "name": "lab1-game-of-life",
+  "version": "1.0.0",
+  "description": "Lab 1: Game of Life with tests and GitHub Actions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "start": "npm run build && node dist/index.js input.txt output.txt"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.5.0"
+  }
+}
