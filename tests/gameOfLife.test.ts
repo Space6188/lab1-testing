@@ -9,7 +9,7 @@ import {
 } from '../src/gameOfLife';
 
 describe('countAliveNeighbours', () => {
-  test('рахує кількість сусідів для клітинки всередині поля', () => {
+  test('рахує кількість живих "x" навколо клітинки всередині поля', () => {
     const grid = stringsToGrid([
       '.x.',
       'xxx',
@@ -20,7 +20,7 @@ describe('countAliveNeighbours', () => {
     expect(result).toBe(4);
   });
 
-  test('підрахунок сусідів враховує замикання по вертикалі (тор)', () => {
+  test('враховує живі "x" знизу при замиканні по вертикалі', () => {
     const grid = stringsToGrid([
       '...',
       '...',
@@ -31,7 +31,7 @@ describe('countAliveNeighbours', () => {
     expect(result).toBe(1);
   });
 
-  test('підрахунок сусідів враховує замикання по горизонталі (тор)', () => {
+  test('враховує живі "x" справа при замиканні по горизонталі', () => {
     const grid = stringsToGrid([
       '..x',
       '...',
@@ -44,7 +44,7 @@ describe('countAliveNeighbours', () => {
 });
 
 describe('getNextCellState (правила гри)', () => {
-  test('мертва клітинка з трьома сусідами оживає', () => {
+  test('клітинка з "." і трьома живими "x" стає "x"', () => {
     const grid = stringsToGrid([
       'xxx',
       '...',
@@ -55,7 +55,7 @@ describe('getNextCellState (правила гри)', () => {
     expect(next).toBe('x');
   });
 
-  test('жива клітинка з двома або трьома сусідами продовжує жити', () => {
+  test('клітинка з "x" і двома або трьома живими "x" залишається "x"', () => {
     const grid = stringsToGrid([
       'xxx',
       '.x.',
@@ -66,7 +66,7 @@ describe('getNextCellState (правила гри)', () => {
     expect(next).toBe('x');
   });
 
-  test('жива клітинка з менш ніж двома сусідами вмирає від самотності', () => {
+  test('клітинка з "x" і менш ніж двома живими "x" стає "."', () => {
     const grid = stringsToGrid([
       '...',
       '.x.',
@@ -77,7 +77,7 @@ describe('getNextCellState (правила гри)', () => {
     expect(next).toBe('.');
   });
 
-  test('жива клітинка з більш ніж трьома сусідами вмирає від перенаселеності', () => {
+  test('клітинка з "x" і більш ніж трьома живими "x" стає "."', () => {
     const grid = stringsToGrid([
       'xxx',
       'xxx',
@@ -90,7 +90,7 @@ describe('getNextCellState (правила гри)', () => {
 });
 
 describe('getNextGeneration (оновлення всього поля)', () => {
-  test('коректно обробляє стабільну фігуру (block)', () => {
+  test('стабільна фігура block не змінюється після одного кроку', () => {
     const start = stringsToGrid([
       '....',
       '.xx.',
@@ -109,7 +109,7 @@ describe('getNextGeneration (оновлення всього поля)', () => {
     ]);
   });
 
-  test('коректно обробляє осцилятор (blinker)', () => {
+  test('трійка клітинок, яка то стоїть вертикально, то горизонтально, що тут з вертикального стає горизонтальним', () => {
     const start = stringsToGrid([
       '.....',
       '..x..',
@@ -132,7 +132,7 @@ describe('getNextGeneration (оновлення всього поля)', () => {
 });
 
 describe('evolve (кілька поколінь підряд)', () => {
-  test('осцилятор (blinker) повертається до початкового стану через два кроки', () => {
+  test('blinker повертається до початкового стану через два кроки', () => {
     const start = stringsToGrid([
       '.....',
       '..x..',
@@ -155,7 +155,7 @@ describe('evolve (кілька поколінь підряд)', () => {
 });
 
 describe('parseInput + evolve: інтеграційний тест з прикладу з умови', () => {
-  test('правильно обробляє вхід з прикладу (3 покоління, 8x5, вертикальний blinker)', () => {
+  test('правильно читає вхід і дає очікуваний результат з прикладу', () => {
     const input = [
       '3',
       '8 5',

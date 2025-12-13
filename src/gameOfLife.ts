@@ -73,7 +73,6 @@ export function countAliveNeighbours(grid: Grid, x: number, y: number): number {
   for (let dy = -1; dy <= 1; dy++) {
     for (let dx = -1; dx <= 1; dx++) {
       if (dx === 0 && dy === 0) continue;
-
       const ny = (y + dy + height) % height;
       const nx = (x + dx + width) % width;
 
